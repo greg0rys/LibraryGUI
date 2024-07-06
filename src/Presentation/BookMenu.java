@@ -7,16 +7,16 @@ import java.awt.*;
 import java.awt.print.Book;
 import java.util.ArrayList;
 
+import static java.lang.System.out;
+
 public class BookMenu extends JFrame
 {
     private JPanel root;
-    private JButton homeButton;
-    private JButton previousMenuButton;
-    private JButton findBookButton;
-    private JButton addBookButton;
-    private JButton seeBookLoanStatusButton;
+
+    @SuppressWarnings("unused")
+    private JButton homeButton, previousMenuButton, findBookButton, addBookButton, seeBookLoanStatusButton;
     private  BookManager bookManager;
-    private ArrayList<Book>
+    private ArrayList<Book> t;
 
     public BookMenu()
     {
@@ -33,14 +33,19 @@ public class BookMenu extends JFrame
     /**
      * Load the book manager.
      */
-    private void load()
+    private boolean load()
     {
+        // make sure we aren't null.
+        if(t == null) t = new ArrayList<>();
+        if(bookManager == null) bookManager = new BookManager();
 
+
+        return bookManager.firstLoad(t); // have the manager fill our list.
     }
 
     /**
      * When new bookMenus get created pass the current manager.
-     * @return
+     * @return the BookManager object.
      */
     public  BookManager getBookManager()
     {
