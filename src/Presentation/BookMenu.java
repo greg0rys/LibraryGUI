@@ -1,13 +1,11 @@
 package Presentation;
 
 import Logic.BookManager;
+import Logic.Book;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.print.Book;
 import java.util.ArrayList;
-
-import static java.lang.System.out;
 
 public class BookMenu extends JFrame
 {
@@ -15,32 +13,42 @@ public class BookMenu extends JFrame
 
     @SuppressWarnings("unused")
     private JButton homeButton, previousMenuButton, findBookButton, addBookButton, seeBookLoanStatusButton;
-    private  BookManager bookManager;
-    private ArrayList<Book> t;
+    private BookManager bookManager;
+    private ArrayList<Book> bookList;
 
     public BookMenu()
     {
         super("Book Menu");
         load();
+
+    }
+
+    /**
+     * The program driver should be the holder of the managers, and they should be passed in when the guis are created
+     * TODO: figure out if there is a more efficient and direct way to complete this.
+     * @param B the book manager we wish to use throughout the program lifecycle.
+     */
+    public BookMenu(BookManager B)
+    {
+        super("Book Menu");
+        bookManager = B;
+        load();
+    }
+
+    /**
+     * Load the book manager.
+     */
+    private void load()
+    {
         bookManager = new BookManager();
         add(root);
         setPreferredSize(new Dimension(400, 200));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         pack();
-    }
 
-    /**
-     * Load the book manager.
-     */
-    private boolean load()
-    {
-        // make sure we aren't null.
-        if(t == null) t = new ArrayList<>();
-        if(bookManager == null) bookManager = new BookManager();
+        bookList = bookManager.getAllBooks();
 
-
-        return bookManager.firstLoad(t); // have the manager fill our list.
     }
 
     /**
@@ -51,4 +59,21 @@ public class BookMenu extends JFrame
     {
         return bookManager;
     }
+
+    public ArrayList<Book> getBookList()
+    {
+        return bookList;
+    }
+
+    /**
+     * Set the events on the actionable JObjects
+     */
+    private void setEvents()
+    {
+        homeButton.addActionListener(e->{
+            new LandingFrame();
+            dispose();
+        });
+    }
+
 }
