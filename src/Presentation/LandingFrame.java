@@ -11,24 +11,37 @@ public class LandingFrame extends JFrame
     private JButton searchButton;
     private JRadioButton searchRadioButton;
     private JRadioButton memberRadioButton;
-    private JRadioButton radioButton3;
+    private JRadioButton bookMenuRadioButton;
     private JLabel name;
     private JPanel root;
+    private JFrame lastScreen = null;
 
     public LandingFrame()
     {
         super("Home Page");
-        add(root);
-        setPreferredSize(new Dimension(600, 400));
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setVisible(true);
-        pack();
+        setup(true);
 
-        loginButton.addActionListener(e ->{
-           out.println("Clicked " + loginButton.getText());
-        });
+    }
 
-        radioButtonEvents();
+    /**
+     * Create a new Landing Frame with the ability to control visibility.
+     * @param display true if we wish to set visible false if else.
+     */
+    public LandingFrame(boolean display)
+    {
+        super("Home Page");
+        setup(display);
+    }
+
+    /**
+     * Create new landing frame with the previous frame stored
+     * @param previousFrame the frame that was displayed before this one.
+     */
+    public LandingFrame(JFrame previousFrame)
+    {
+        super("Home Page");
+        lastScreen = previousFrame;
+        setup(true);
     }
 
     private void radioButtonEvents()
@@ -36,24 +49,39 @@ public class LandingFrame extends JFrame
         searchRadioButton.addActionListener(e ->
                                             {
                                                 memberRadioButton.setSelected(false);
-                                                radioButton3.setSelected(false);
+                                                bookMenuRadioButton.setSelected(false);
                                                 dispose();
                                             });
 
         memberRadioButton.addActionListener(e ->
                                        {
                                            searchRadioButton.setSelected(false);
-                                           radioButton3.setSelected(false);
+                                           bookMenuRadioButton.setSelected(false);
                                            new MemberMenu();
                                            dispose();
 
                                        });
 
-        radioButton3.addActionListener(e ->
+        bookMenuRadioButton.addActionListener(e ->
                                        {
                                            searchRadioButton.setSelected(false);
                                            memberRadioButton.setSelected(false);
                                            dispose();
                                        });
+    }
+
+    private void setup(boolean display)
+    {
+        add(root);
+        setPreferredSize(new Dimension(600, 400));
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(display);
+        pack();
+        radioButtonEvents();
+    }
+
+    private JFrame getLastScreen()
+    {
+        return lastScreen;
     }
 }

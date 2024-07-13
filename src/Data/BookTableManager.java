@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import static java.lang.System.out;
 
@@ -104,6 +105,51 @@ public class BookTableManager extends SuperDB
         {
             return false;
         }
+    }
+
+
+    /**
+     * Accept user input to add books
+     * TODO: input sanitization.
+     * @return true if we added any books, false if we did not.
+     * @throws SQLException DB issues with the query.
+     */
+    public boolean addBooks() throws SQLException
+    {
+        Scanner scanner = new Scanner(System.in);
+        String title, author, answer;
+        ArrayList<Book> books = new ArrayList<>();
+        boolean flag = false;
+
+        do
+        {
+            out.println("Enter Book Title: ");
+            title = scanner.nextLine();
+            if (title.isEmpty())
+            {
+                return false;
+
+            }
+            out.println("Enter Book Author: ");
+            author = scanner.nextLine();
+            if (author.isEmpty())
+            {
+                return false;
+            }
+            Book book = new Book(title, author);
+            flag = addBook(book);
+
+            out.println("Enter more books? Enter (Y/N");
+            answer = scanner.nextLine();
+
+            if (answer.equalsIgnoreCase("N"))
+            {
+               return flag;
+            }
+
+        } while(flag);
+
+        return flag;
     }
 
 

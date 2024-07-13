@@ -36,4 +36,22 @@ public class SuperDB
         }
     }
 
+    public boolean seedDB()
+    {
+        try (Connection conn = getConnection())
+        {
+            for(int i = 0; i <= 5; i++)
+            {
+                Statement stmt = conn.createStatement();
+                stmt.executeUpdate("INSERT INTO Book (Title) VALUES ('Book Title')");
+            }
+
+        }
+        catch (SQLException e)
+        {
+            out.println(e.getMessage());
+        }
+        return true;
+    }
+
 }

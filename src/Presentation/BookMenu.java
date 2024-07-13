@@ -10,9 +10,15 @@ import java.util.ArrayList;
 public class BookMenu extends JFrame
 {
     private JPanel root;
+    private JButton lastScreenButton;
+    private JButton exitButton;
 
     @SuppressWarnings("unused")
-    private JButton homeButton, previousMenuButton, findBookButton, addBookButton, seeBookLoanStatusButton;
+    private JButton homeButton;
+    private JButton addBookButton;
+    private JButton searchButton;
+    private JButton seeAllButton;
+    private JButton loanStatusButton;
     private BookManager bookManager;
     private ArrayList<Book> bookList;
 
