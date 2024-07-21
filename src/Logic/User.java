@@ -15,6 +15,13 @@ public class User
         userType = type;
     }
 
+    public User(String firstName, String lastName, String type)
+    {
+        fName = firstName;
+        lName = lastName;
+        userType = type;
+    }
+
 
     public String getfName() { return fName; }
 

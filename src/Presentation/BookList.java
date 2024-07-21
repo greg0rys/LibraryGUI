@@ -78,7 +78,7 @@ public class BookList extends JFrame
 
     private void buttonEvents()
     {
-        addBookButton.addActionListener(e ->{
+        addBookButton.addActionListener(e -> {
             /* create input form for new books. */
             dispose();
         });

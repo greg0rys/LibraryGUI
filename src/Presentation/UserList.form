@@ -17,7 +17,7 @@
           </grid>
         </constraints>
         <properties>
-          <layoutOrientation value="1"/>
+          <layoutOrientation value="0"/>
           <name value="Library Members"/>
         </properties>
       </component>
@@ -33,14 +33,6 @@
           <model/>
           <name value="Employees"/>
         </properties>
-      </component>
-      <component id="f918b" class="javax.swing.JList" binding="adminList">
-        <constraints>
-          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="2" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="50"/>
-          </grid>
-        </constraints>
-        <properties/>
       </component>
       <grid id="33121" binding="navButtons" layout-manager="GridLayoutManager" row-count="1" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
@@ -130,6 +122,17 @@
         </constraints>
         <properties>
           <text value="Label"/>
+        </properties>
+      </component>
+      <component id="f918b" class="javax.swing.JList" binding="adminList">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="7" anchor="0" fill="2" indent="0" use-parent-layout="false">
+            <preferred-size width="1500" height="1500"/>
+          </grid>
+        </constraints>
+        <properties>
+          <layoutOrientation value="0"/>
+          <selectionMode value="0"/>
         </properties>
       </component>
     </children>

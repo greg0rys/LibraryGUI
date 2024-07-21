@@ -8,6 +8,8 @@ import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static java.lang.System.out;
+
 @SuppressWarnings("unchecked")
 public class UserList extends JFrame
 {
@@ -56,9 +58,11 @@ public class UserList extends JFrame
         setButtonEvents();
         add(root);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(500, 500));
+        setPreferredSize(new Dimension(600, 500));
         pack();
         setVisible(true);
+
+
     }
 
     /* populate the lists upon frame load */
@@ -112,6 +116,58 @@ public class UserList extends JFrame
 
             prevFrame.setVisible(true);
             dispose();
+        });
+
+        addUserButton.addActionListener( e -> {
+           new AddUserMenu(this, UTM);
+        });
+
+        editUserButton.addActionListener( e -> {
+            int memberListIndex = memberList.getSelectedIndex();
+            int employeeListIndex = employeeList.getSelectedIndex();
+            int adminListIndex = adminList.getSelectedIndex();
+            int selectedIndex = -1;
+            if (memberListIndex > -1)
+            {
+                selectedIndex = memberListIndex;
+            }
+            else if (employeeListIndex > -1)
+            {
+                selectedIndex = employeeListIndex;
+            }
+            else if (adminListIndex > -1)
+            {
+                selectedIndex = adminListIndex;
+            }
+
+                            User selectedUser = users.get(selectedIndex);
+                new EditUserMenu(this, UTM, selectedUser);
+        });
+
+        adminList.addListSelectionListener(e->{
+            if(employeeList.getSelectedIndex() > -1)
+                employeeList.clearSelection();
+
+            if(memberList.getSelectedIndex() > -1)
+                memberList.clearSelection();
+        });
+
+        memberList.addListSelectionListener(e->{
+            if(employeeList.getSelectedIndex() > -1)
+                employeeList.clearSelection();
+
+            if(adminList.getSelectedIndex() > -1)
+                adminList.clearSelection();
+        });
+
+        employeeList.addListSelectionListener(e->{
+
+            if(memberList.getSelectedIndex() > -1)
+                memberList.clearSelection();
+
+            if(adminList.getSelectedIndex() > -1)
+                adminList.clearSelection();
+
         });
 
     }
