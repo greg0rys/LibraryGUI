@@ -1,11 +1,8 @@
 import Data.SuperDB;
 import Logic.Book;
 import Logic.BookManager;
-import Presentation.BookAddEditForm;
-import Presentation.BookList;
-import Presentation.LandingFrame;
+import Presentation.*;
 import Data.BookTableManager;
-import Presentation.UserList;
 
 import javax.swing.*;
 import java.sql.*;
@@ -39,7 +36,8 @@ public class Main {
 //            new BookList(new BookManager().getAllBooks());
             BookManager bm = new BookManager();
             ArrayList<Book> books = bm.getAllBooks();
-            new BookAddEditForm(books.get(1), bm, null, books);
+//            new BookAddEditForm(books.get(1), bm, null, books);
+            new BookMenu();
         });
     }
 }

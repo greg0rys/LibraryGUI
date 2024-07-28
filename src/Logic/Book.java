@@ -57,4 +57,15 @@ public class Book
     {
         tableID = tID;
     }
+
+    /**
+     * Compare a book to see if they are the same by title and author.
+     * If this returns true, then no DB call will be made when a book is in the edit form.
+     * @param temp the book to compare
+     * @return true if they are a title and author match false if else.
+     */
+    public boolean compare(Book temp)
+    {
+        return ( title.equals(temp.getTitle()) && author.equals(temp.getAuthor()) );
+    }
 }

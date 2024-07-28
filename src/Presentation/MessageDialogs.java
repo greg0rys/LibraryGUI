@@ -33,4 +33,11 @@ public class MessageDialogs extends JFrame
                                       message + " has been deleted",
                                       frame.getTitle() + " Deletion", JOptionPane.INFORMATION_MESSAGE);
     }
+
+    public static void showWarningMessage(JFrame frame, String message)
+    {
+        JOptionPane.showMessageDialog(frame,
+                                      message,
+                                      frame.getTitle() + " Warning", JOptionPane.INFORMATION_MESSAGE);
+    }
 }

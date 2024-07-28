@@ -12,12 +12,12 @@ import static java.lang.System.out;
 
 public class BookTableManager extends SuperDB
 {
-  private ArrayList<Book> listNode;
   private PreparedStatement ps;
   private ResultSet rs;
   private static final String UPDATE_BOOK = "UPDATE Book SET Title=?,Author=? WHERE ID=?";
   private static final String SELECT_ALL_BOOKS = "SELECT * FROM Book";
   private static final String INSERT_BOOK = "INSERT INTO Book(Title,Author) VALUES(?,?)";
+  private static final String DELETE_BOOK = "DELETE FROM Book WHERE ID=?";
 
 
 
@@ -25,7 +25,6 @@ public class BookTableManager extends SuperDB
     public BookTableManager()
     {
         super();
-        listNode = getAllBooks();
     }
 
 
@@ -35,10 +34,10 @@ public class BookTableManager extends SuperDB
      */
     public ArrayList<Book> getAllBooks()
     {
-        ArrayList<Book> books = new ArrayList<>();
 
         try(Connection con = super.getConnection())
         {
+            ArrayList<Book> books = new ArrayList<>();
             PreparedStatement ps = con.prepareStatement(SELECT_ALL_BOOKS);
             ResultSet rs = ps.executeQuery();
 
@@ -69,8 +68,7 @@ public class BookTableManager extends SuperDB
             ps.setString(1,B.getTitle());
             ps.setString(2,B.getAuthor());
 
-            out.println("updating..");
-            return ps.executeUpdate() > 1;
+            return ps.executeUpdate() >= 1;
 
         }
         catch (SQLException e)
@@ -89,19 +87,17 @@ public class BookTableManager extends SuperDB
      */
     public boolean updateBook(Book B, int bookID) throws SQLException
     {
-        if (B == null) return false;
 
         try (Connection conn = getConnection())
         {
-            ps = null;
-            rs = null;
+            if (B == null) return false;
 
             ps = conn.prepareStatement(UPDATE_BOOK);
             ps.setString(1, B.getTitle());
             ps.setString(2, B.getAuthor());
             ps.setInt(3, bookID);
 
-            return ps.executeUpdate() > 1;
+            return (ps.executeUpdate()  == 1);
         }
         catch (Exception e)
         {
@@ -110,48 +106,20 @@ public class BookTableManager extends SuperDB
     }
 
 
-    /**
-     * Accept user input to add books
-     * TODO: input sanitization.
-     * @return true if we added any books, false if we did not.
-     * @throws SQLException DB issues with the query.
-     */
-    public boolean addBooks() throws SQLException
+
+    public boolean removeBook(int bookID)
     {
-        Scanner scanner = new Scanner(System.in);
-        String title, author, answer;
-        ArrayList<Book> books = new ArrayList<>();
-        boolean flag = false;
-
-        do
+        try(Connection conn = getConnection())
         {
-            out.println("Enter Book Title: ");
-            title = scanner.nextLine();
-            if (title.isEmpty())
-            {
-                return false;
-
-            }
-            out.println("Enter Book Author: ");
-            author = scanner.nextLine();
-            if (author.isEmpty())
-            {
-                return false;
-            }
-            Book book = new Book(title, author);
-            flag = addBook(book);
-
-            out.println("Enter more books? Enter (Y/N");
-            answer = scanner.nextLine();
-
-            if (answer.equalsIgnoreCase("N"))
-            {
-               return flag;
-            }
-
-        } while(flag);
-
-        return flag;
+            PreparedStatement ps = conn.prepareStatement(DELETE_BOOK);
+            ps.setInt(1, bookID);
+            return ps.executeUpdate() == 1;
+        }
+        catch(SQLException e)
+        {
+            out.println(e.getMessage());
+            return false;
+        }
     }
 
 
