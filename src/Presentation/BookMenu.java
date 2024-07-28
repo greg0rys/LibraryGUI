@@ -5,6 +5,7 @@ import Logic.Book;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class BookMenu extends JFrame
@@ -27,6 +28,8 @@ public class BookMenu extends JFrame
     public BookMenu()
     {
         super("Book Menu");
+        bookManager = new BookManager();
+        bookList = bookManager.getAllBooks();
         load();
 
     }
@@ -50,9 +53,10 @@ public class BookMenu extends JFrame
     {
         bookManager = new BookManager();
         add(root);
-        setPreferredSize(new Dimension(400, 200));
+        setPreferredSize(new Dimension(500, 200));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        setLocationRelativeTo(null);
         pack();
         setEvents();
 
@@ -92,8 +96,16 @@ public class BookMenu extends JFrame
             }
             else if(editBookRadioButton.isSelected())
             {
-                new BookAddEditForm();
-                dispose();
+                try
+                {
+                    new EditBookSelectionForm(bookList);
+                    dispose();
+
+                }
+                catch (SQLException ex)
+                {
+                    throw new RuntimeException(ex);
+                }
             }
             else if(removeBookRadioButton.isSelected())
             {
