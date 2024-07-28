@@ -58,6 +58,7 @@ public class EditBookSelectionForm extends JFrame implements Frame
     private void setEvents()
     {
         submitButton.addActionListener(e->{
+            // user the arraylist index of to take the selected index and find the book in the list to pass in edit
         });
 
     }
