@@ -15,7 +15,7 @@ public class BookTableManager extends SuperDB
   private ArrayList<Book> listNode;
   private PreparedStatement ps;
   private ResultSet rs;
-  private static final String UPDATE_BOOK = "UPDATE Book SET Title=?,Author=? WHERE Title=?";
+  private static final String UPDATE_BOOK = "UPDATE Book SET Title=?,Author=? WHERE ID=?";
   private static final String SELECT_ALL_BOOKS = "SELECT * FROM Book";
   private static final String INSERT_BOOK = "INSERT INTO Book(Title,Author) VALUES(?,?)";
 
@@ -43,7 +43,7 @@ public class BookTableManager extends SuperDB
             ResultSet rs = ps.executeQuery();
 
             while(rs.next())
-                books.add(new Book(rs.getString("Title"), rs.getString("Author")));
+                books.add(new Book(rs.getString("Title"), rs.getString("Author"), rs.getInt("ID")));
             return books;
         }
         catch (SQLException e)
@@ -69,7 +69,8 @@ public class BookTableManager extends SuperDB
             ps.setString(1,B.getTitle());
             ps.setString(2,B.getAuthor());
 
-            return true;
+            out.println("updating..");
+            return ps.executeUpdate() > 1;
 
         }
         catch (SQLException e)
@@ -82,24 +83,25 @@ public class BookTableManager extends SuperDB
 
     /**
      * Takes whatever the values are for the Book and updates them in the DB
+     *
      * @param B
      * @return true if updated false when errors occur.
      */
-    public boolean updateBook(Book B)
+    public boolean updateBook(Book B, int bookID) throws SQLException
     {
-        if(B == null) return false;
+        if (B == null) return false;
 
-        try(Connection conn = getConnection())
+        try (Connection conn = getConnection())
         {
             ps = null;
             rs = null;
 
             ps = conn.prepareStatement(UPDATE_BOOK);
-            ps.setString(1,B.getTitle());
-            ps.setString(2,B.getAuthor());
-            ps.setString(3,B.getTitle());
+            ps.setString(1, B.getTitle());
+            ps.setString(2, B.getAuthor());
+            ps.setInt(3, bookID);
 
-            return true;
+            return ps.executeUpdate() > 1;
         }
         catch (Exception e)
         {

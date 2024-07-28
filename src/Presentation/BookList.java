@@ -18,6 +18,7 @@ public class BookList extends JFrame
     private JButton lastScrButton;
     private JButton searchButton;
     private JButton addBookButton;
+    private JLabel totalBooksL;
     private final ArrayList<Book> books = new ArrayList<>();
     private JFrame lastScr = null;
 
@@ -57,22 +58,24 @@ public class BookList extends JFrame
             dtm.addRow(new Object[]{b.getTitle(),b.getAuthor()});
 
         bookList.setModel(dtm);
+        totalBooksL.setText("Total Books: " + books.size());
     }
 
     /**
      * Default setup method - created to keep the constructor clean.
      * @param B the ArrayList of books that will be added to the model.
      */
+
     private void setup(ArrayList<Book> B)
     {
         books.clear();
         books.addAll(B);
         model(); /* set the table model */
-
         add(root);
         setPreferredSize(new Dimension(500, 300));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+        setLocationRelativeTo(null);
         pack();
     }
 
@@ -102,6 +105,7 @@ public class BookList extends JFrame
         {
             lastScrButton.setVisible(false);
         }
+
 
     }
 }

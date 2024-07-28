@@ -6,11 +6,19 @@ public class Book
 {
     private String title;
     private String author;
+    private int tableID;
 
     public Book(String title, String author)
     {
         this.title = title;
         this.author = author;
+    }
+
+    public Book(String bTitle, String bAuthor, int tID)
+    {
+        title = bTitle;
+        author = bAuthor;
+        tableID = tID;
     }
 
     public void display()
@@ -38,5 +46,15 @@ public class Book
     public void setAuthor(String A)
     {
         author = A;
+    }
+
+    public int getTableID()
+    {
+        return tableID;
+    }
+
+    public void setTableID(int tID)
+    {
+        tableID = tID;
     }
 }

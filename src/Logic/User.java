@@ -1,18 +1,22 @@
 package Logic;
 
+import java.util.ArrayList;
+
 public class User
 {
     private String fName;
     private String lName;
     private int ID;
     private String userType;
+    private ArrayList<Book> checkedBooks;
 
-    public User(int id, String name, String lastname, String type)
+    public User(int id, String name, String lastname, String type, ArrayList<Book> books)
     {
         ID = id;
         lName = name;
         fName = lastname;
         userType = type;
+        checkedBooks = (books == null) ? new ArrayList<>() : books; // protect against null.
     }
 
     public User(String firstName, String lastName, String type)
@@ -39,4 +43,9 @@ public class User
     public void setUserType(String newType) { userType = newType; }
 
     public void setID(int newID) { ID = newID; }
+
+    public boolean addBook(Book newBook)
+    {
+        return checkedBooks.add(newBook);
+    }
 }

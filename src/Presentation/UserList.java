@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import static java.lang.System.out;
 
 @SuppressWarnings("unchecked")
-public class UserList extends JFrame
+public class UserList extends JFrame implements Frame
 {
     private JPanel root;
     private JList memberList;
@@ -51,7 +51,8 @@ public class UserList extends JFrame
     }
 
     /* default setup method */
-    private void setup() throws SQLException
+    @Override
+    public void setup() throws SQLException
     {
         users = UTM.getUserList();
         populateLists();
@@ -61,6 +62,7 @@ public class UserList extends JFrame
         setPreferredSize(new Dimension(600, 500));
         pack();
         setVisible(true);
+        setLocationRelativeTo(null); // Keep frames in the middle of the screen
 
 
     }
@@ -127,6 +129,7 @@ public class UserList extends JFrame
             int employeeListIndex = employeeList.getSelectedIndex();
             int adminListIndex = adminList.getSelectedIndex();
             int selectedIndex = -1;
+
             if (memberListIndex > -1)
             {
                 selectedIndex = memberListIndex;
@@ -140,8 +143,8 @@ public class UserList extends JFrame
                 selectedIndex = adminListIndex;
             }
 
-                            User selectedUser = users.get(selectedIndex);
-                new EditUserMenu(this, UTM, selectedUser);
+            User selectedUser = new User(null,null,null);
+            new EditUserMenu(this, UTM, selectedUser);
         });
 
         adminList.addListSelectionListener(e->{
@@ -158,6 +161,7 @@ public class UserList extends JFrame
 
             if(adminList.getSelectedIndex() > -1)
                 adminList.clearSelection();
+
         });
 
         employeeList.addListSelectionListener(e->{
@@ -165,7 +169,7 @@ public class UserList extends JFrame
             if(memberList.getSelectedIndex() > -1)
                 memberList.clearSelection();
 
-            if(adminList.getSelectedIndex() > -1)
+            if(adminList.getSelectedIndex() != 0)
                 adminList.clearSelection();
 
         });

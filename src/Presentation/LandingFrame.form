@@ -52,7 +52,7 @@
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Search "/>
+              <text value="Book Menu"/>
             </properties>
           </component>
           <hspacer id="7c5ea">
@@ -68,12 +68,12 @@
               <text value="Member Menu"/>
             </properties>
           </component>
-          <component id="a4e6" class="javax.swing.JRadioButton" binding="bookMenuRadioButton" default-binding="true">
+          <component id="a4e6" class="javax.swing.JRadioButton" binding="employeeMenuRadioButton">
             <constraints>
               <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="RadioButton"/>
+              <text value="Employee Menu"/>
             </properties>
           </component>
           <component id="4f89" class="javax.swing.JLabel" binding="name">

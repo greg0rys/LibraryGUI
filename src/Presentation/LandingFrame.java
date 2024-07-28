@@ -3,15 +3,13 @@ package Presentation;
 import javax.swing.*;
 import java.awt.*;
 
-import static java.lang.System.out;
-
 public class LandingFrame extends JFrame
 {
     private JButton loginButton;
     private JButton searchButton;
     private JRadioButton searchRadioButton;
     private JRadioButton memberRadioButton;
-    private JRadioButton bookMenuRadioButton;
+    private JRadioButton employeeMenuRadioButton;
     private JLabel name;
     private JPanel root;
     private JFrame lastScreen = null;
@@ -49,20 +47,20 @@ public class LandingFrame extends JFrame
         searchRadioButton.addActionListener(e ->
                                             {
                                                 memberRadioButton.setSelected(false);
-                                                bookMenuRadioButton.setSelected(false);
+                                                employeeMenuRadioButton.setSelected(false);
                                                 dispose();
                                             });
 
         memberRadioButton.addActionListener(e ->
                                        {
                                            searchRadioButton.setSelected(false);
-                                           bookMenuRadioButton.setSelected(false);
+                                           employeeMenuRadioButton.setSelected(false);
                                            new MemberMenu();
                                            dispose();
 
                                        });
 
-        bookMenuRadioButton.addActionListener(e ->
+        employeeMenuRadioButton.addActionListener(e ->
                                        {
                                            searchRadioButton.setSelected(false);
                                            memberRadioButton.setSelected(false);
@@ -73,11 +71,12 @@ public class LandingFrame extends JFrame
     private void setup(boolean display)
     {
         add(root);
-        setPreferredSize(new Dimension(600, 400));
+        setPreferredSize(new Dimension(650, 150));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(display);
         pack();
         radioButtonEvents();
+        setLocationRelativeTo(null); // keep frames in the middle of the screen
     }
 
     private JFrame getLastScreen()

@@ -37,6 +37,12 @@ public class BookManager
         return true;
     }
 
+    public boolean updateBook(Book B, int bookID) throws SQLException
+    {
+        return bookManager.updateBook(B, bookID);
+
+    }
+
     public ArrayList<Book> getAllBooks()
     {
         return bookManager.getAllBooks();

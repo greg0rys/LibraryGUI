@@ -48,7 +48,7 @@ public class UserTableManager extends SuperDB
 
             while(rs.next())
                 users.add(new User(rs.getInt("ID"), rs.getString("FirstName"),
-                                   rs.getString("LastName"), rs.getString("UserType")));
+                                   rs.getString("LastName"), rs.getString("UserType"), null));
 
             return users;
         }
